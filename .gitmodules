@@ -1,0 +1,3 @@
+[submodule "dependencies/GPSTK"]
+	path = dependencies/GPSTK
+	url = https://gitlab.com/radionavlab/core/GPSTK.git
