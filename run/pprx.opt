@@ -1,0 +1,15 @@
+-i /dev/radiolynx0
+-e
+--realtime
+--ref-host=refnet1.ae.utexas.edu
+--output-port=50000
+-c ./pprx.cfg
+--bitpack lynx_sb
+--depth 3
+-t -1
+--log-interval 10
+--ref-interval 10 
+--acq-interval 2000
+--binary-only
+-o pprx.gbx
+#-q

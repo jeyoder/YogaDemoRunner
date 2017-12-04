@@ -1,0 +1,48 @@
+#!/bin/bash
+
+SESSION_NAME='PP_Stack'
+
+echo "Launching stack in a tmux session. Will take ~30 seconds."
+echo "This tmux session uses:"
+echo "Modifier: C-a"
+echo "Horizontal split: -"
+echo "Vertical split: |"
+
+# Create a new tmux session
+tmux new -s $SESSION_NAME -d
+
+# Start pprx in a new window
+WINDOW_NAME='PPRX'
+COMMANDS=('cd ~/pp_stack' 'pprx -f pprx.opt --imu-file=/dev/radionlynx1 -v')
+tmux new-window -t $SESSION_NAME -n $WINDOW_NAME
+for COMMAND in "${COMMANDS[@]}"
+do
+    tmux send -t "$SESSION_NAME":"$WINDOW_NAME" "$COMMAND" Enter
+done
+
+# Wait for PPRX to launch before launching the publishing node
+sleep 15
+
+# Start quad GBX_TO_ROS node
+WINDOW_NAME='GBX-ROS'
+COMMANDS=('roslaunch refnetclientros quad.launch')
+tmux new-window -t $SESSION_NAME -n $WINDOW_NAME
+for COMMAND in "${COMMANDS[@]}"
+do
+    tmux send -t "$SESSION_NAME":"$WINDOW_NAME" "$COMMAND" Enter
+done
+
+# Wait for GBX data to be published to ros before starting ppengine
+sleep 5
+
+# Start PPFusion
+WINDOW_NAME='PP-Fusion'
+COMMANDS=('cd ~/pp_stack' './ppfusion')
+tmux new-window -t $SESSION_NAME -n $WINDOW_NAME
+for COMMAND in "${COMMANDS[@]}"
+do
+    tmux send -t "$SESSION_NAME":"$WINDOW_NAME" "$COMMAND" Enter
+done
+
+# Attach tmux
+tmux attach -t $SESSION_NAME

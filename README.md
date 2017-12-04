@@ -1,0 +1,1 @@
+This directory encapsulates the various components of the precise position software stack on the quads. To set everything up, run the install script in the top-level directory. It will run the install scripts in the lower directories and set everything up. Run the code in the 'run' directory.
