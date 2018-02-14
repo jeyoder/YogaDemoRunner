@@ -1,12 +1,12 @@
 #!/bin/bash
 
-DIR=`pwd`
+TOP_DIR=`pwd`
 
 cd dependencies
 ./install.sh
 
-cd $DIR
+cd $TOP_DIR
 cd src
 ./install.sh
 
-cd $DIR
+cd $TOP_DIR

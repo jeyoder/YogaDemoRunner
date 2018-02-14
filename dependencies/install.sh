@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Install apt dependencies
-sudo apt-get install liblapack-dev install ncurses-dev install libfftw3-dev libboost-all-dev 
+sudo apt-get liblapack-dev install ncurses-dev install libfftw3-dev libboost-all-dev 
 
 # Pull all of the submodules
 git submodule update --init --recursive
@@ -30,7 +30,8 @@ sudo make install PREFIX=/usr/local
 cd $DIR
 wget -O armadillo.tar.xz http://sourceforge.net/projects/arma/files/armadillo-8.300.1.tar.xz # This may need to be updated
 tar -xvf armadillo.tar.xz
-cd armadillo
+rm armadillo.tar.xz
+cd armadillo-8.300.1
 cmake .
 make
 sudo make install
