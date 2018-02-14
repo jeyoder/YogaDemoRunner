@@ -2,3 +2,5 @@
 *.gbx
 *.log
 
+src/build
+dependencies/armadillo-8.300.1

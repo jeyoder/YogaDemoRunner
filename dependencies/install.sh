@@ -1,7 +1,10 @@
 #!/bin/bash
 
+# Exit on failure
+set -e
+
 # Install apt dependencies
-sudo apt-get liblapack-dev install ncurses-dev install libfftw3-dev libboost-all-dev 
+sudo apt-get install liblapack-dev ncurses-dev libfftw3-dev libboost-all-dev 
 
 # Pull all of the submodules
 git submodule update --init --recursive
@@ -12,6 +15,7 @@ DIR=`pwd`
 # Install GPSTk
 cd $DIR
 cd GPSTK
+if [ -d "build" ]; then rm -rf build; fi
 mkdir build
 cd build
 cmake -DBUILD_EXT=ON -DCMAKE_BUILD_TYPE=Release ..
