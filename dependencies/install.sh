@@ -15,8 +15,7 @@ DIR=`pwd`
 # Install GPSTk
 cd $DIR
 cd GPSTK
-if [ -d "build" ]; then rm -rf build; fi
-mkdir build
+if [ ! -d "build" ]; then mkdir build; fi
 cd build
 cmake -DBUILD_EXT=ON -DCMAKE_BUILD_TYPE=Release ..
 make -j 8
@@ -32,9 +31,11 @@ sudo make install PREFIX=/usr/local
 
 # Install Armadillo
 cd $DIR
-wget -O armadillo.tar.xz http://sourceforge.net/projects/arma/files/armadillo-8.300.1.tar.xz # This may need to be updated
-tar -xvf armadillo.tar.xz
-rm armadillo.tar.xz
+if [ ! -d "armadillo-8.300.1"]; then 
+    wget -O armadillo.tar.xz http://sourceforge.net/projects/arma/files/armadillo-8.300.1.tar.xz # This may need to be updated
+    tar -xvf armadillo.tar.xz
+    rm armadillo.tar.xz
+fi
 cd armadillo-8.300.1
 cmake .
 make
