@@ -19,7 +19,7 @@
                 output="screen"/>
 
             <!-- GBX Streamer -->
-            <include file="$(find refnetclientros)/launch/tmp.launch">
+            <include file="$(find refnetclientros)/launch/quad.launch">
                 <arg name="refnet_namespace" value="/$(arg refnet_namespace)"/>
                 <arg name="quad_namespace" value="/$(arg quad_namespace)"/>
             </include>
