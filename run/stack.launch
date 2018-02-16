@@ -1,0 +1,38 @@
+<launch>
+    <!-- PARAMETERS -->
+    <arg name="quad_namespace" value="phoenix"/>
+    <arg name="refnet_namespace" value="refnet"/>
+    <arg name="use_camera" default="false"/>
+    
+
+    <!-- UNIQUE NAMESPACE OF QUAD -->
+    <group ns="$(arg quad_namespace)">
+    
+        <!-- Odroid Nodes -->
+        <group>
+            <!-- PPRX -->
+            <node 
+                name="PPRX" 
+                pkg="pprx"
+                type="pprx" 
+                required="true" 
+                output="screen"/>
+
+            <!-- GBX Streamer -->
+            <include file="$(find refnetclientros)/launch/tmp.launch">
+                <arg name="refnet_namespace" value="/$(arg refnet_namespace)"/>
+                <arg name="quad_namespace" value="/$(arg quad_namespace)"/>
+            </include>
+
+            <!-- PPEngine -->
+            <node
+                name="PP_Engine"
+                pkg="ppengine"
+                type="ppengine"
+                args="--ref /$(arg refnet_namespace) --rov /$(arg quad_namespace) --out /$(arg quad_namespace) --config /home/odroid/PP-Quad/run/A2D.cfg --config /home/odroid/PP-Quad/run/SBRTK.cfg"
+                required="true"
+                output="screen"/>
+        
+        </group>
+    </group>
+</launch>

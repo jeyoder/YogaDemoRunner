@@ -1,7 +1,0 @@
-#!/bin/bash
-
-REFNET_TOPIC=refnet
-QUAD_GBX_TOPIC=phoenix
-OUTPUT_TOPIC=phoenix
-
-rosrun ppengineros ppengineros --ref $REFNET_TOPIC --rov $QUAD_GBX_TOPIC --out $OUTPUT_TOPIC --config A2D.cfg --config SBRTK.cfg
