@@ -31,7 +31,7 @@ sudo make install PREFIX=/usr/local
 
 # Install Armadillo
 cd $DIR
-if [ ! -d "armadillo-8.300.1"]; then 
+if [ ! -d "armadillo-8.300.1" ]; then 
     wget -O armadillo.tar.xz http://sourceforge.net/projects/arma/files/armadillo-8.300.1.tar.xz # This may need to be updated
     tar -xvf armadillo.tar.xz
     rm armadillo.tar.xz
