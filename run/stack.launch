@@ -15,8 +15,8 @@
                 name="PPRX" 
                 pkg="pprx"
                 type="pprx" 
-                required="true" 
-                output="screen"/>
+                output="screen"
+                launch-prefix="tmux new-window"/>
 
             <!-- GBX Streamer -->
             <include file="$(find refnetclientros)/launch/quad.launch">
@@ -30,9 +30,19 @@
                 pkg="ppengine"
                 type="ppengine"
                 args="--ref /$(arg refnet_namespace) --rov /$(arg quad_namespace) --out /$(arg quad_namespace) --config /home/odroid/PP-Quad/run/A2D.cfg --config /home/odroid/PP-Quad/run/SBRTK.cfg"
-                required="true"
-                output="screen"/>
+                output="screen"
+                launch-prefix="tmux new-window"/>
+
+            <!-- GPS Kalman Filter -->
+            <include file="$(find gps_kf)/launch/gpsQuad.launch">
+                <arg name="quad_namespace" value="/$(arg quad_namespace)"/>
+            </include>
         
+        </group>
+
+        <!-- Snapdragon Nodes -->
+        <group>
+
         </group>
     </group>
 </launch>
