@@ -1,48 +1,20 @@
-<launch>
-    <!-- PARAMETERS -->
-    <arg name="quad_namespace" value="phoenix"/>
-    <arg name="refnet_namespace" value="refnet"/>
-    <arg name="use_camera" default="false"/>
-    
+<!-- MAVROS PARAMETERS. NO TOUCH. -->    
+<arg name="fcu_url" default="udp://:14550@192.168.1.4:14556"/>
+<arg name="gcs_url" default="" />
+<arg name="tgt_system" default="1" />
+<arg name="tgt_component" default="1" />
+<arg name="log_output" default="screen" />
+<!-- PX4 Control -->
+<include file="$(find px4_control)/launch/360_group.launch"/> 
 
-    <!-- UNIQUE NAMESPACE OF QUAD -->
-    <group ns="$(arg quad_namespace)">
-    
-        <!-- Odroid Nodes -->
-        <group>
-            <!-- PPRX -->
-            <node 
-                name="PPRX" 
-                pkg="pprx"
-                type="pprx" 
-                output="screen"
-                launch-prefix="tmux new-window"/>
-
-            <!-- GBX Streamer -->
-            <include file="$(find refnetclientros)/launch/quad.launch">
-                <arg name="refnet_namespace" value="/$(arg refnet_namespace)"/>
-                <arg name="quad_namespace" value="/$(arg quad_namespace)"/>
-            </include>
-
-            <!-- PPEngine -->
-            <node
-                name="PP_Engine"
-                pkg="ppengine"
-                type="ppengine"
-                args="--ref /$(arg refnet_namespace) --rov /$(arg quad_namespace) --out /$(arg quad_namespace) --config /home/odroid/PP-Quad/run/A2D.cfg --config /home/odroid/PP-Quad/run/SBRTK.cfg"
-                output="screen"
-                launch-prefix="tmux new-window"/>
-
-            <!-- GPS Kalman Filter -->
-            <include file="$(find gps_kf)/launch/gpsQuad.launch">
-                <arg name="quad_namespace" value="/$(arg quad_namespace)"/>
-            </include>
+<!-- MAVROS -->
+<include file="$(find mavros)/launch/node.launch">
+    <arg name="pluginlists_yaml" value="$(find mavros)/launch/px4_pluginlists.yaml" />
+    <arg name="config_yaml" value="$(find mavros)/launch/px4_config.yaml" />
+    <arg name="fcu_url" value="$(arg fcu_url)" />
+    <arg name="gcs_url" value="$(arg gcs_url)" />
+    <arg name="tgt_system" value="$(arg tgt_system)" />
+    <arg name="tgt_component" value="$(arg tgt_component)" />
+    <arg name="log_output" value="$(arg log_output)" />
+</include>
         
-        </group>
-
-        <!-- Snapdragon Nodes -->
-        <group>
-
-        </group>
-    </group>
-</launch>
