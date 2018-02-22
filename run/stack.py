@@ -1,4 +1,4 @@
-#!/usr/local/bin/python3
+#!/usr/bin/python3
 import subprocess
 import time
 
@@ -25,7 +25,6 @@ def start_new_tmux_session():
     subprocess.run(command, shell=True)
 
 def launch_tmux_window(window_name):
-    return
     command = ("tmux new-window -t "
                + SESSION_NAME 
                + " -n " 
@@ -33,64 +32,83 @@ def launch_tmux_window(window_name):
     subprocess.run(command, shell=True)
 
 def run_command_in_window(window_name, window_command):
-    print(window_command)
-    return
     command = ("tmux send -t " 
                + SESSION_NAME 
                + ":" 
                + window_name 
-               + " '"
+               + " \""
                + window_command
-               +"' Enter")
+               +"\" Enter")
     subprocess.run(command, shell=True)
 
 # Create new tmux session
 start_new_tmux_session()
 
-# Launch PPRX
-# Wait 5 seconds before starting streamer
-window_name = "PPRX"
-window_command = "cd /home/odroid/PP-Quad/run; pprx -f pprx.opt -v"
-launch_tmux_window(window_name)
-run_command_in_window(window_name, window_command)
-time.sleep(5)
+# # Launch PPRX
+# # Wait 5 seconds before starting streamer
+# window_name = "PPRX"
+# window_command = "cd /home/odroid/PP-Quad/run; pprx -f pprx.opt -v"
+# launch_tmux_window(window_name)
+# run_command_in_window(window_name, window_command)
+# time.sleep(5)
+# 
+# # Launch GBX-Streamer
+# window_name = "GBX-ROS"
+# window_command = ("roslaunch refnetclientros quad.launch" + 
+#     " quad_namespace:=" + QUAD_NAMESPACE + 
+#     " refnet_namespace:=" + REFNET_NAMESPACE)
+# launch_tmux_window(window_name)
+# run_command_in_window(window_name, window_command)
+# 
+# # Launch PPEngine
+# window_name = "PP-Engine"
+# window_command = ("rosrun ppengine ppengine" +
+#     " --ref " + REFNET_NAMESPACE + 
+#     " --rov " + QUAD_NAMESPACE + 
+#     " --out " + QUAD_NAMESPACE + 
+#     " --config /home/odroid/PP-Quad/run/A2D.cfg" +
+#     " --config /home/odroid/PP-Quad/run/SBRTK.cfg")
+# launch_tmux_window(window_name)
+# run_command_in_window(window_name, window_command)
+# 
+# # Launch GPS-Kalman-Filter
+# window_name = "GPS-KF"
+# window_command = ("roslaunch gps_kf gpsQuad.launch" +
+#     " quad_namespace:=" + QUAD_NAMESPACE)
+# launch_tmux_window(window_name)
+# run_command_in_window(window_name, window_command)
+# 
+# 
+# # Launch Camera
+# if(USE_CAMERA == True):
+#     window_name = "SNAPCAM"
+#     window_command = ("ssh -t " +
+#         SNAPDRAGON_USERNAME + 
+#         "@" +
+#         SNAPDRAGON_IP + 
+#         " \'echo roslaunch snap_cam main.launch | bash -i\'")
+#     launch_tmux_window(window_name)
+#     run_command_in_window(window_name, window_command)
+# 
+# Start PX4
+# window_name = "PX4"
+# window_command = ("ssh -t " +
+#     SNAPDRAGON_USERNAME + 
+#     "@" +
+#     SNAPDRAGON_IP + 
+#     " \'echo /home/linaro/px4 /home/linaro/mainapp.config | bash -i\'")
+# launch_tmux_window(window_name)
+# run_command_in_window(window_name, window_command)
 
-# Launch GBX-Streamer
-window_name = "GBX-ROS"
-window_command = ("roslaunch refnetclientros quad.launch" + 
-    " quad_namespace:=" + QUAD_NAMESPACE + 
-    " refnet_namespace:=" + REFNET_NAMESPACE)
-launch_tmux_window(window_name)
-run_command_in_window(window_name, window_command)
-
-# Launch PPEngine
-window_name = "PP-Engine"
-window_command = ("rosrun ppengine ppengine" +
-    " --ref " + REFNET_NAMESPACE + 
-    " --rov " + QUAD_NAMESPACE + 
-    " --out " + QUAD_NAMESPACE + 
-    " --config /home/odroid/PP-Quad/run/A2D.cfg" +
-    " --config /home/odroid/PP-Quad/run/SBRTK.cfg")
-launch_tmux_window(window_name)
-run_command_in_window(window_name, window_command)
-
-# Launch GPS-Kalman-Filter
-window_name = "GPS-KF"
-window_command = ("roslaunch gps_kf gpsQuad.launch" +
-    " quad_namespace:=" + QUAD_NAMESPACE)
-launch_tmux_window(window_name)
-run_command_in_window(window_name, window_command)
-
-# Launch Camera
-if(USE_CAMERA == True):
-    window_name = "SNAPCAM"
-    window_command = ("ssh -t " +
-        SNAPDRAGON_USERNAME + 
-        "@" +
-        SNAPDRAGON_IP + 
-        " \"bash -ic 'roslaunch snap_cam main.launch'\"")
-    launch_tmux_window(window_name)
-    run_command_in_window(window_name, window_command)
+# Start PX4
+# window_name = "PX4"
+# window_command = ("ssh -t " +
+#     SNAPDRAGON_USERNAME + 
+#     "@" +
+#     SNAPDRAGON_IP + 
+#     " \'echo /home/linaro/px4 /home/linaro/mainapp.config | bash -i\'")
+# launch_tmux_window(window_name)
+# run_command_in_window(window_name, window_command)
 
 # Printout
 print("Attach the tmux session with: 'tmux attach -t " + SESSION_NAME + "'")
