@@ -10,7 +10,7 @@ SESSION_NAME="stack"
 REFNET_NAMESPACE="refnet"
 SNAPDRAGON_USERNAME="root"
 SNAPDRAGON_IP=QUAD_NAMESPACE + "-snapdragon"
-USE_CAMERA=True
+USE_CAMERA=False
 
 # Printout
 print("Launching stack in a tmux session. Will take ~15 seconds.")
@@ -43,78 +43,82 @@ def run_command_in_window(window_name, window_command, pane_number=0):
                +"\" Enter")
     subprocess.run(command, shell=True)
 
-def halve_window(window_name, dimension):
+def split_window(window_name, dimension, pane_number=0):
     """ Dimension is either -v for vertical or -h for horizontal """
     command = ("tmux split-window -t "
                + SESSION_NAME 
                + ":" 
                + window_name 
+               + "."
+               + str(pane_number)
                + " -d "
                + dimension)
     subprocess.run(command, shell=True)
 
-def select_pane(window_name, position):
-    """ Position is -DLRU"""
-    command = ("tmux select-pane " + position)
-    subprocess.run(command, shell=True)
+def quarter_window(window_name):
+    split_window(window_name, '-h', 0)
+    split_window(window_name, '-v', 0)
+    split_window(window_name, '-v', 2)
 
 # Create new tmux session
 start_new_tmux_session()
 
 ## Launch PPRX
 # Wait 5 seconds before starting streamer
-# window_name = "PPRX"
-# window_command = "cd /home/odroid/PP-Quad/run; pprx -f pprx.opt -v"
-# launch_tmux_window(window_name)
-# run_command_in_window(window_name, window_command)
-# time.sleep(5)
+window_name = "PPRX"
+window_command = "cd /home/odroid/PP-Quad/run; pprx -f pprx.opt -v"
+launch_tmux_window(window_name)
+run_command_in_window(window_name, window_command)
+time.sleep(5)
 
 
 
 ## Launch GBX-Streamer and PPEngine 
-# window_name = "GBX"
-# launch_tmux_window(window_name)
-# halve_window(window_name, '-v')
-# 
-# # Launch GBX-Streamer
-# window_command = ("roslaunch refnetclientros quad.launch" + 
-#     " quad_namespace:=" + QUAD_NAMESPACE + 
-#     " refnet_namespace:=" + REFNET_NAMESPACE)
-# run_command_in_window(window_name, window_command, 0)
-# 
-# # Launch PPEngine
-# window_command = ("rosrun ppengine ppengine" +
-#     " --ref " + REFNET_NAMESPACE + 
-#     " --rov " + QUAD_NAMESPACE + 
-#     " --out " + QUAD_NAMESPACE + 
-#     " --config /home/odroid/PP-Quad/run/A2D.cfg" +
-#     " --config /home/odroid/PP-Quad/run/SBRTK.cfg")
-# run_command_in_window(window_name, window_command, 1)
+window_name = "GBX"
+launch_tmux_window(window_name)
+split_window(window_name, '-v')
+
+# Launch GBX-Streamer
+window_command = ("roslaunch refnetclientros quad.launch" + 
+    " quad_namespace:=" + QUAD_NAMESPACE + 
+    " refnet_namespace:=" + REFNET_NAMESPACE)
+run_command_in_window(window_name, window_command, 0)
+
+# Launch PPEngine
+window_command = ("rosrun ppengineros ppengineros" +
+    " --ref " + REFNET_NAMESPACE + 
+    " --rov " + QUAD_NAMESPACE + 
+    " --out " + QUAD_NAMESPACE + 
+    " --config /home/odroid/PP-Quad/run/A2D.cfg" +
+    " --config /home/odroid/PP-Quad/run/SBRTK.cfg")
+run_command_in_window(window_name, window_command, 1)
 
 
 
 ## Launch Odroid ROS Files
+window_name = "ROS"
+launch_tmux_window(window_name)
+quarter_window(window_name)
+
 # GPS Kalman Filter
-# window_name = "GPS-KF"
-# window_command = ("roslaunch gps_kf gpsQuad.launch" +
-#     " quad_namespace:=" + QUAD_NAMESPACE)
-# launch_tmux_window(window_name)
-# run_command_in_window(window_name, window_command)
+window_command = ("roslaunch gps_kf gpsQuad.launch" +
+    " quad_namespace:=" + QUAD_NAMESPACE)
+run_command_in_window(window_name, window_command, 0)
 
 # PX4 Control
-# window_command = ("ssh -t " +
-#     SNAPDRAGON_USERNAME + 
-#     "@" +
-#     SNAPDRAGON_IP + 
-#     " \'echo /home/linaro/px4 /home/linaro/mainapp.config | bash -i\'")
-# run_command_in_window(window_name, window_command, 1)
+window_command = ("roslaunch px4_control stack.launch")
+run_command_in_window(window_name, window_command, 1)
+
+# Waypoint control
+window_command = ("roslaunch waypoint_control nickPilot.launch")
+run_command_in_window(window_name, window_command, 2)
 
 
 
 ## Start Snapdragon files
 window_name = "SNAP"
 launch_tmux_window(window_name)
-halve_window(window_name, '-v')
+split_window(window_name, '-v')
 
 # PX4
 window_command = ("ssh -t " +
