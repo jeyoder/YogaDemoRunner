@@ -67,7 +67,7 @@ start_new_tmux_session()
 # Wait 5 seconds before starting streamer
 window_name = "PPRX"
 window_command = "cd /home/odroid/PP-Quad/run; pprx -f pprx.opt -v"
-launch_tmux_window(window_name)
+subprocess.run("tmux rename-window -t " + SESSION_NAME + ":1 " + window_name, shell=True)
 run_command_in_window(window_name, window_command)
 time.sleep(5)
 
@@ -106,11 +106,11 @@ window_command = ("roslaunch gps_kf gpsQuad.launch" +
 run_command_in_window(window_name, window_command, 0)
 
 # PX4 Control
-window_command = ("roslaunch px4_control stack.launch")
+window_command = ("roslaunch px4_control stack.launch ns:=" + QUAD_NAMESPACE)
 run_command_in_window(window_name, window_command, 1)
 
 # Waypoint control
-window_command = ("roslaunch waypoint_control nickPilot.launch")
+window_command = ("roslaunch waypoint_control stack.launch")
 run_command_in_window(window_name, window_command, 2)
 
 
