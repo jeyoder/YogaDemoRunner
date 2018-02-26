@@ -1,10 +1,7 @@
 #!/bin/bash
-REFNET_GBX="$1 $2"
-QUAD_GBX="$3 $4"
-OUTPUT="$5 $6"
-A2D_CONFIG="$7 $8"
-SB_CONFIG="$9 ${10}"
+REFNET_GBX="refnet"
+QUAD_GBX="phoenix"
+A2D="A2D.cfg"
+SBRTK="SBRTK.cfg"
 
-cmd="rosrun ppengineros ppengineros $REFNET_GBX $QUAD_GBX $OUTPUT $A2D_CONFIG $SB_CONFIG"
-$cmd
-
+rosrun ppengineros ppengineros --ref $REFNET_GBX --rov $QUAD_GBX --out $QUAD_GBX --config $A2D --config $SBRTK
