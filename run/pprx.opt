@@ -2,7 +2,6 @@
 -e
 --realtime
 --ref-host=refnet1.ae.utexas.edu
---output-port=50000
 -c ./pprx.cfg
 --bitpack lynx_sb
 --depth 3
