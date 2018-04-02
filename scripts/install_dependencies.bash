@@ -6,11 +6,8 @@ set -e
 # Install apt dependencies
 sudo apt-get install liblapack-dev ncurses-dev libfftw3-dev libboost-all-dev 
 
-# Pull all of the submodules
-git submodule update --init --recursive
-
 # Dependencies dir
-DIR=`pwd`
+DIR="$(pwd)/../dependencies"
 
 # Install GPSTk
 cd $DIR
