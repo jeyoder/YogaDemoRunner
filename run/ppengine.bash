@@ -1,5 +1,5 @@
 #!/bin/bash
-INPUT_GBX="pprx.gbx"
+INPUT_GBX="pprx_r"
 QUAD_GBX="phoenix"
 A2D="A2D.cfg"
 SBRTK="SBRTK.cfg"
