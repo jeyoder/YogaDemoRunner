@@ -1,2 +1,2 @@
 #!/bin/bash
-pprx -f pprx.opt -v 
+pprx -f pprx.opt -v
