@@ -10,5 +10,5 @@
 --ref-interval 10 
 --acq-interval 2000
 --binary-only
--o pprx_w
+-o pprx_write
 #-q

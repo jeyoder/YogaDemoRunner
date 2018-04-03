@@ -13,7 +13,7 @@ SNAPDRAGON_IP=QUAD_NAMESPACE + "-snapdragon"
 USE_CAMERA=False
 
 # Printout
-print("Launching stack in a tmux session. Will take ~15 seconds.")
+print("Launching stack in a tmux session.")
 print("This tmux session uses:")
 print("Modifier: C-a")
 print("Horizontal split: -")
@@ -69,30 +69,28 @@ window_name = "PPRX"
 window_command = "cd /home/odroid/PP-Quad/run; pprx -f pprx.opt -v"
 subprocess.run("tmux rename-window -t " + SESSION_NAME + ":1 " + window_name, shell=True)
 run_command_in_window(window_name, window_command)
-time.sleep(5)
-
 
 
 ## Launch GBX-Streamer and PPEngine 
 window_name = "GBX"
 launch_tmux_window(window_name)
-split_window(window_name, '-v')
+quarter_window(window_name)
 
 # Launch GBX-Streamer
-window_command = ("roslaunch refnetclientros quad.launch" + 
-    " quad_namespace:=" + QUAD_NAMESPACE + 
-    " refnet_namespace:=" + REFNET_NAMESPACE)
+window_command = ("roslaunch refnetclientros refnet.launch")
 run_command_in_window(window_name, window_command, 0)
 
 # Launch PPEngine
 window_command = ("rosrun ppengineros ppengineros" +
-    " --ref " + REFNET_NAMESPACE + 
-    " --rov " + QUAD_NAMESPACE + 
+    " --in /home/odroid/PP-Quad/run/pprx_read" + 
     " --out " + QUAD_NAMESPACE + 
     " --config /home/odroid/PP-Quad/run/A2D.cfg" +
     " --config /home/odroid/PP-Quad/run/SBRTK.cfg")
 run_command_in_window(window_name, window_command, 1)
 
+# Launch PPEngine
+window_command = ("cd /home/odroid/PP-Quad/run; echo 'Piping...'; < pprx_write tee pprx_read pprx.gbx > /dev/null")
+run_command_in_window(window_name, window_command, 2)
 
 
 ## Launch Odroid ROS Files
@@ -108,7 +106,6 @@ quarter_window(window_name)
 # Waypoint control
 # window_command = ("roslaunch waypoint_control stack.launch")
 # run_command_in_window(window_name, window_command, 2)
-
 
 
 ## Start Snapdragon files
@@ -133,13 +130,13 @@ quarter_window(window_name)
 # run_command_in_window(window_name, window_command, 1)
 
 # Launch Camera
-if(USE_CAMERA == True):
-    window_command = ("ssh -t " +
-        SNAPDRAGON_USERNAME + 
-        "@" +
-        SNAPDRAGON_IP + 
-        " \'echo roslaunch snap_cam main.launch | bash -i\'")
-    run_command_in_window(window_name, window_command, 2)
+# if(USE_CAMERA == True):
+#     window_command = ("ssh -t " +
+#         SNAPDRAGON_USERNAME + 
+#         "@" +
+#         SNAPDRAGON_IP + 
+#         " \'echo roslaunch snap_cam main.launch | bash -i\'")
+#     run_command_in_window(window_name, window_command, 2)
 
 
 

@@ -2,8 +2,8 @@
 
 set -e
 
-CFG_DIR="$(pwd)/../run"
-GSS_DIR="$(pwd)/../src/gss"
+CFG_DIR="/home/odroid/PP-Quad/run"
+GSS_DIR="/home/odroid/PP-Quad/src/gss"
 GSS_CFG_DIR="$GSS_DIR/pprx/src/optAndConfigFiles/machineGamesQuads"
 
 # Update GSS

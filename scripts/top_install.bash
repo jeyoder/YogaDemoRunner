@@ -3,18 +3,20 @@
 # Exit on failure
 set -e
 
-DIR=`pwd`
-TOP_DIR="$(pwd)/../"
+TOP_DIR="/home/odroid/PP-Quad"
 
 # Pull all submodules
+cd $TOP_DIR
 git submodule update --init --recursive
 
 # Install dependencies
-cd $DIR
+cd $TOP_DIR/scripts
 ./install_dependencies.bash
 
 # Build pprx and ros packages
-cd $DIR
+cd $TOP_DIR/scripts
 ./install_src.bash
 
-cd $TOP_DIR
+# Add names pipes
+cd $TOP_DIR/scripts
+./make_pipes.bash

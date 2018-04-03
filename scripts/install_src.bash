@@ -3,9 +3,7 @@
 # Exit on failure
 set -e
 
-TOP_DIR=`pwd`
-DIR="$(pwd)/../src/"
-
+DIR="/home/odroid/PP-Quad/src/"
 cd $DIR
 
 # Export pythonpath or the install gets confused
@@ -16,5 +14,3 @@ if [ ! -d "build" ]; then mkdir build; fi
 cd build
 cmake -DSINGLE_BIT=ON ..
 sudo make all -j4 install
-
-cd $TOP_DIR
