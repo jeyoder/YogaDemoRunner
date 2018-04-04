@@ -13,4 +13,4 @@ export PYTHONPATH=/opt/ros/kinetic/lib/python2.7/dist-packages/
 if [ ! -d "build" ]; then mkdir build; fi
 cd build
 cmake -DSINGLE_BIT=ON ..
-sudo make all -j4 install
+sudo make all -j8 install
