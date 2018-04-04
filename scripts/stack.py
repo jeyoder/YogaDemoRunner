@@ -77,8 +77,8 @@ launch_tmux_window(window_name)
 quarter_window(window_name)
 
 # Launch GBX-Streamer
-window_command = ("roslaunch refnetclientros refnet.launch")
-run_command_in_window(window_name, window_command, 0)
+# window_command = ("roslaunch refnetclientros refnet.launch")
+# run_command_in_window(window_name, window_command, 0)
 
 # Launch PPEngine
 window_command = ("rosrun ppengineros ppengineros" +
@@ -114,12 +114,12 @@ launch_tmux_window(window_name)
 quarter_window(window_name)
 
 # PX4
-# window_command = ("ssh -t " +
-#     SNAPDRAGON_USERNAME + 
-#     "@" +
-#     SNAPDRAGON_IP + 
-#     " \'/home/linaro/px4 /home/linaro/mainapp.config\'")
-# run_command_in_window(window_name, window_command, 0)
+window_command = ("ssh -t " +
+    SNAPDRAGON_USERNAME + 
+    "@" +
+    SNAPDRAGON_IP + 
+    " \'/home/linaro/px4 /home/linaro/mainapp.config\'")
+run_command_in_window(window_name, window_command, 0)
 
 # PX4 Control
 # window_command = ("ssh -t " +
