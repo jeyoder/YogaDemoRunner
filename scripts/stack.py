@@ -85,7 +85,8 @@ window_command = ("rosrun ppengineros ppengineros" +
     " --in /home/odroid/PP-Quad/run/pprx_read" + 
     " --out " + QUAD_NAMESPACE + 
     " --config /home/odroid/PP-Quad/run/A2D.cfg" +
-    " --config /home/odroid/PP-Quad/run/SBRTK.cfg")
+    " --config /home/odroid/PP-Quad/run/SBRTK.cfg" +
+    " --skip 40")
 run_command_in_window(window_name, window_command, 1)
 
 # Launch PPEngine
