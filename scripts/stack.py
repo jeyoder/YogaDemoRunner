@@ -3,7 +3,7 @@ import subprocess
 import time
 
 # CAN CHANGE
-QUAD_NAMESPACE="phoenix"
+QUAD_NAMESPACE="gryphon"
 
 # DO NOT CHANGE
 SESSION_NAME="stack"
@@ -100,9 +100,16 @@ launch_tmux_window(window_name)
 quarter_window(window_name)
 
 # GPS Kalman Filter
-# window_command = ("roslaunch gps_kf gpsQuad.launch" +
-#     " quad_namespace:=" + QUAD_NAMESPACE)
-# run_command_in_window(window_name, window_command, 0)
+window_command = ("roslaunch gps_kf gpsQuad.launch" +
+    " quad_namespace:=" + QUAD_NAMESPACE)
+run_command_in_window(window_name, window_command, 0)
+
+# Printouts
+window_command = ("rostopic echo /" + QUAD_NAMESPACE + "/Attitude2D")
+run_command_in_window(window_name, window_command, 1)
+
+window_command = ("rostopic echo /" + QUAD_NAMESPACE + "/SingleBaselineRTK")
+run_command_in_window(window_name, window_command, 2)
 
 # Waypoint control
 # window_command = ("roslaunch waypoint_control stack.launch")
