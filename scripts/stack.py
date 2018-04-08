@@ -10,7 +10,7 @@ SESSION_NAME="stack"
 REFNET_NAMESPACE="refnet"
 SNAPDRAGON_USERNAME="root"
 SNAPDRAGON_IP=QUAD_NAMESPACE + "-snapdragon"
-USE_CAMERA=False
+USE_CAMERA=True
 
 # Printout
 print("Launching stack in a tmux session.")
@@ -138,13 +138,13 @@ run_command_in_window(window_name, window_command, 0)
 # run_command_in_window(window_name, window_command, 1)
 
 # Launch Camera
-# if(USE_CAMERA == True):
-#     window_command = ("ssh -t " +
-#         SNAPDRAGON_USERNAME + 
-#         "@" +
-#         SNAPDRAGON_IP + 
-#         " \'echo roslaunch snap_cam main.launch | bash -i\'")
-#     run_command_in_window(window_name, window_command, 2)
+if(USE_CAMERA == True):
+    window_command = ("ssh -t " +
+        SNAPDRAGON_USERNAME + 
+        "@" +
+        SNAPDRAGON_IP + 
+        " \'echo roslaunch snap_cam main.launch | bash -i\'")
+    run_command_in_window(window_name, window_command, 2)
 
 
 
