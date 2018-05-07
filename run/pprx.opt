@@ -3,7 +3,7 @@
 --realtime
 --ref-host=refnet1.ae.utexas.edu
 -c ./pprx.cfg
---bitpack lynx_sb
+--bitpack lynx
 --depth 3
 -t -1
 --log-interval 10
