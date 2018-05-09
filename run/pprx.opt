@@ -1,4 +1,5 @@
 -i /dev/radiolynx0
+--imu-file=/dev/radiolynx1
 -e
 --realtime
 --ref-host=refnet1.ae.utexas.edu
