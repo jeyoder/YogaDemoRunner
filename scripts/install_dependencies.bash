@@ -7,7 +7,7 @@ set -e
 sudo apt-get install liblapack-dev ncurses-dev libfftw3-dev libboost-all-dev 
 
 # Dependencies dir
-DIR="/home/odroid/PP-Quad/dependencies"
+DIR="/home/jey369/git/PP-Quad/dependencies"
 
 # Install GPSTk
 cd $DIR

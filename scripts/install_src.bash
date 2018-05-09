@@ -3,7 +3,7 @@
 # Exit on failure
 set -e
 
-DIR="/home/odroid/PP-Quad/src/"
+DIR="/home/jey369/git/PP-Quad/src/"
 cd $DIR
 
 # Export pythonpath or the install gets confused

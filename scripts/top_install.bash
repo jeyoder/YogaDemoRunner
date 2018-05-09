@@ -3,7 +3,7 @@
 # Exit on failure
 set -e
 
-TOP_DIR="/home/odroid/PP-Quad"
+TOP_DIR="/home/jey369/git/PP-Quad"
 
 # Pull all submodules
 cd $TOP_DIR
