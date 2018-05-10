@@ -15,9 +15,9 @@ USE_CAMERA=True
 # Printout
 print("Launching stack in a tmux session.")
 print("This tmux session uses:")
-print("Modifier: C-a")
-print("Horizontal split: -")
-print("Vertical split: |")
+print("Modifier: C-b")
+print("Horizontal split: \"")
+print("Vertical split: %")
 print("Launching...")
 
 def start_new_tmux_session():
@@ -71,12 +71,6 @@ window_command = "cd /home/odroid/PP-Quad/run; pprx -f pprx.opt -v"
 subprocess.run("tmux rename-window -t " + SESSION_NAME + ":1 " + window_name, shell=True)
 run_command_in_window(window_name, window_command)
 
-
-
-# Launch GBX-Streamer
-# window_command = ("roslaunch refnetclientros refnet.launch")
-# run_command_in_window(window_name, window_command, 0)
-
 ## Launch Odroid ROS Files
 window_name = "ROS"
 launch_tmux_window(window_name)
@@ -92,7 +86,7 @@ run_command_in_window(window_name, "roscore", 1)
 time.sleep(2)
 
 # Printouts
-window_command = ("rostopic echo /" + QUAD_NAMESPACE + "/pose")
+window_command = ("rostopic echo /" + QUAD_NAMESPACE + "/local_odom")
 run_command_in_window(window_name, window_command, 0)
 
 window_command = ("rostopic echo /" + QUAD_NAMESPACE + "/Attitude2D")
@@ -105,7 +99,7 @@ run_command_in_window(window_name, window_command, 3)
 
 
 ## Launch GBX-Streamer and PPEngine 
-window_name = "GBX"
+window_name = "PPEngine"
 launch_tmux_window(window_name)
 quarter_window(window_name)
 
@@ -123,6 +117,9 @@ run_command_in_window(window_name, window_command, 2)
 
 window_command = ("roslaunch gnss_visualization gnss.launch")
 run_command_in_window(window_name, window_command, 3)
+
+window_command = ("roslaunch gps_kf gpsYoga.launch")
+run_command_in_window(window_name, window_command, 0)
 
 # Printout
 print("Attach the tmux session with: 'tmux attach -t " + SESSION_NAME + "'")
