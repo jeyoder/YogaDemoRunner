@@ -24,7 +24,7 @@ sudo make install
 # Install OpenBLAS
 cd $DIR/../dependencies
 cd OpenBLAS
-make USE_THREAD=0 # <build target dependent on system>
+make USE_THREAD=0 -j8 # <build target dependent on system>
 sudo make install PREFIX=/usr/local
 
 

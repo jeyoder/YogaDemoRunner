@@ -14,5 +14,6 @@ export PYTHONPATH=/opt/ros/kinetic/lib/python2.7/dist-packages/
 # Build pprx
 if [ ! -d "build" ]; then mkdir build; fi
 cd build
-cmake -DSINGLE_BIT=ON ..
+#cmake -DSINGLE_BIT=ON ..    [USE THIS LINE IF SINGLE BIT QUANTIZATION IS DESIRED]
+cmake -DSINGLE_BIT=OFF ..
 sudo make all install
