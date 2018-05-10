@@ -1,18 +1,18 @@
 [submodule "dependencies/GPSTK"]
 	path = dependencies/GPSTK
-	url = ssh://git@gitlab.com/radionavlab/core/GPSTk.git
+	url = https://gitlab.com/radionavlab/core/GPSTk.git
 [submodule "dependencies/OpenBLAS"]
 	path = dependencies/OpenBLAS
 	url = https://github.com/xianyi/OpenBLAS.git
 [submodule "src/gss"]
 	path = src/gss
-	url = ssh://git@gitlab.com/radionavlab/core/gss.git
+	url = https://gitlab.com/radionavlab/core/gss.git
 [submodule "src/rscore"]
 	path = src/rscore
-	url = ssh://git@gitlab.com/radionavlab/core/rscore.git
+	url = https://gitlab.com/radionavlab/core/rscore.git
 [submodule "src/gbx_to_ros"]
 	path = src/gbx_to_ros
-	url = ssh://git@gitlab.com/radionavlab/core/gbx_to_ros.git
+	url = https://gitlab.com/radionavlab/core/gbx_to_ros.git
 [submodule "src/gps_kf"]
 	path = src/gps_kf
 	url = https://github.com/radionavlab/gps_kf.git
