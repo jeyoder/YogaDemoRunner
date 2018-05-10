@@ -3,8 +3,10 @@
 # Exit on failure
 set -e
 
-DIR="/home/jey369/git/PP-Quad/src/"
-cd $DIR
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$DIR/common.bash"
+
+cd $DIR/../src
 
 # Export pythonpath or the install gets confused
 export PYTHONPATH=/opt/ros/kinetic/lib/python2.7/dist-packages/

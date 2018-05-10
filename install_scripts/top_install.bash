@@ -1,22 +1,24 @@
 #!/bin/bash
 
+
 # Exit on failure
 set -e
 
-TOP_DIR="/home/jey369/git/PP-Quad"
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$DIR/common.bash"
+
+cd $DIR
+
+TOP_DIR="$DIR/../"
 
 # Pull all submodules
-cd $TOP_DIR
-git submodule update --init --recursive
+./update_submodules.bash
 
 # Install dependencies
-cd $TOP_DIR/scripts
 ./install_dependencies.bash
 
 # Build pprx and ros packages
-cd $TOP_DIR/scripts
 ./install_src.bash
 
 # Add names pipes
-cd $TOP_DIR/scripts
 ./make_pipes.bash

@@ -1,6 +1,7 @@
 *.swp
 *.gbx
 *.log
+*.mat
 
 src/build
 dependencies/armadillo-8.300.1

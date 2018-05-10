@@ -2,8 +2,11 @@
 
 set -e
 
-CFG_DIR="/home/jey369/git/PP-Quad/run"
-GSS_DIR="/home/jey369/git/PP-Quad/src/gss"
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$DIR/common.bash"
+
+CFG_DIR="$DIR/../run"
+GSS_DIR="$DIR/../src/gss"
 GSS_CFG_DIR="$GSS_DIR/pprx/src/optAndConfigFiles/machineGamesQuads"
 
 # Update GSS

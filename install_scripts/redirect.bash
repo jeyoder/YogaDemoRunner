@@ -1,6 +1,9 @@
 #!/bin/bash
-DIR="/home/odroid/PP-Quad/run"
-cd $DIR
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$DIR/common.bash"
+
+cd $DIR/../run
 
 # Pipe pprx output to pprx_write
 # Copy pprx_write to pprx.gbx
