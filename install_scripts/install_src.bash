@@ -5,6 +5,7 @@ set -e
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source "$DIR/common.bash"
+source "$DIR/ros_env.bash"
 
 cd $DIR/../src
 
@@ -17,3 +18,5 @@ cd build
 #cmake -DSINGLE_BIT=ON ..    [USE THIS LINE IF SINGLE BIT QUANTIZATION IS DESIRED]
 cmake -DSINGLE_BIT=OFF ..
 sudo make all install
+
+../install_scripts/update_cfg.bash
