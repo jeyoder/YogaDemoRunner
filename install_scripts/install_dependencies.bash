@@ -9,7 +9,7 @@ source $DIR/common.bash
 set -e
 
 # Install apt dependencies
-sudo apt-get install liblapack-dev ncurses-dev libfftw3-dev libboost-all-dev 
+sudo apt-get install liblapack-dev ncurses-dev libfftw3-dev libboost-all-dev gdb gcc g++ python-rosinstall python-rosinstall-generator python-wstool build-essential
 
 # Install GPSTk
 cd $DIR/../dependencies
