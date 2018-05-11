@@ -4,5 +4,8 @@
 *.mat
 
 src/build
+src/build2
 dependencies/armadillo-8.300.1
 run/gbxFiles
+
+compile_commands.json
