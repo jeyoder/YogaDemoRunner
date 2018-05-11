@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import subprocess
 import time
+import os
 
 # CAN CHANGE
 QUAD_NAMESPACE="yoga"
@@ -19,6 +20,10 @@ print("Modifier: C-b")
 print("Horizontal split: \"")
 print("Vertical split: %")
 print("Launching...")
+
+# Find local directory
+PATH=os.path.dirname(os.path.realpath(__file__))
+print("PATH={}".format(PATH))
 
 def start_new_tmux_session():
     command = "tmux new -s " + SESSION_NAME + " -d"
@@ -67,7 +72,7 @@ start_new_tmux_session()
 # Wait 5 seconds before starting streamer
 window_name = "PPRX"
 launch_tmux_window(window_name)
-window_command = "cd /home/odroid/PP-Quad/run; pprx -f pprx.opt -v"
+window_command = "cd " + PATH + "; pprx -f pprx.opt -v"
 subprocess.run("tmux rename-window -t " + SESSION_NAME + ":1 " + window_name, shell=True)
 run_command_in_window(window_name, window_command)
 
@@ -104,15 +109,15 @@ launch_tmux_window(window_name)
 quarter_window(window_name)
 
 window_command = ("rosrun ppengineros ppengineros" +
-    " --in /home/odroid/PP-Quad/run/pprx_read" + 
+    " --in" + PATH+ "/pprx_read" + 
     " --out " + QUAD_NAMESPACE + 
-    " --config /home/odroid/PP-Quad/run/A2D.cfg" +
-    " --config /home/odroid/PP-Quad/run/SBRTK.cfg" +
+    " --config " + PATH + "/A2D.cfg" +
+    " --config " + PATH+ "/SBRTK.cfg" +
     " --skip 40")
 run_command_in_window(window_name, window_command, 1)
 
 # Launch PPEngine
-window_command = ("cd /home/odroid/PP-Quad/run; echo 'Piping...'; < pprx_write tee pprx_read pprx.gbx > /dev/null")
+window_command = ("cd " + PATH+"; echo 'Piping...'; < pprx_write tee pprx_read pprx.gbx > /dev/null")
 run_command_in_window(window_name, window_command, 2)
 
 window_command = ("roslaunch gnss_visualization gnss.launch")
