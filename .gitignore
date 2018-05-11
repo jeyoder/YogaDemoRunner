@@ -8,4 +8,9 @@ src/build2
 dependencies/armadillo-8.300.1
 run/gbxFiles
 
+run/*.cfg
+
+run/pprx_read
+run/pprx_write
+
 compile_commands.json
