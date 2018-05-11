@@ -109,7 +109,7 @@ launch_tmux_window(window_name)
 quarter_window(window_name)
 
 window_command = ("rosrun ppengineros ppengineros" +
-    " --in" + PATH+ "/pprx_read" + 
+    " --in " + PATH+ "/pprx_read" + 
     " --out " + QUAD_NAMESPACE + 
     " --config " + PATH + "/A2D.cfg" +
     " --config " + PATH+ "/SBRTK.cfg" +
