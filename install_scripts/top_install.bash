@@ -22,3 +22,6 @@ TOP_DIR="$DIR/../"
 
 # Add names pipes
 ./make_pipes.bash
+
+#copy over cfg files / make symlinks
+./update_cfg.bash
